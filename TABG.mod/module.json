@@ -1,0 +1,152 @@
+{
+  "id": "tabg",
+  "name": "TABG Dedicated Server",
+  "version": "1.2.0",
+  "author": "Shenniko",
+  "description": "WindowsGSH module for installing, configuring, and launching a Totally Accurate Battlegrounds community server.",
+  "url": "https://github.com/WindowsGSH/WindowsGSH.TABG",
+  "homepage": "https://landfall.se/tabg-dedicated-server-guide",
+  "repository": "https://github.com/WindowsGSH/WindowsGSH.TABG",
+  "sourceUrl": "https://github.com/WindowsGSH/WindowsGSH.TABG",
+  "color": "#1E8449",
+  "moduleApiVersion": "1.0",
+  "minimumWindowsGshVersion": "0.1.0",
+  "type": "csharp",
+  "entry": "WindowsGSH.Modules.TABG.TabgModule",
+  "steam": {
+    "appId": "2311970",
+    "anonymous": true,
+    "validate": true
+  },
+  "entryPoints": {
+    "start": "TABG.exe",
+    "processName": "TABG"
+  },
+  "runtime": {
+    "allowsEmbeddedConsole": false,
+    "consoleStrategy": "None",
+    "portIncrements": 1,
+    "queryProtocol": "process",
+    "defaultArguments": "{server.additionalArguments}",
+    "stop": {
+      "strategy": "closeWindow",
+      "waitMilliseconds": 5000,
+      "killAfterTimeout": true
+    }
+  },
+  "capabilities": {
+    "directConnection": false
+  },
+  "configFields": [
+    {
+      "key": "server.name",
+      "label": "Server Name",
+      "type": "Text",
+      "defaultValue": "TABG Server",
+      "required": true,
+      "group": "Server",
+      "description": "Landfall allows only approved words. Run VerifyAllowedWords.exe before publishing the server."
+    },
+    {
+      "key": "server.description",
+      "label": "Description",
+      "type": "Text",
+      "defaultValue": "Community Server",
+      "group": "Server",
+      "description": "Must use words accepted by Landfall's verifier."
+    },
+    {
+      "key": "server.password",
+      "label": "Password",
+      "type": "Password",
+      "defaultValue": "",
+      "group": "Server"
+    },
+    {
+      "key": "server.maxPlayers",
+      "label": "Max Players",
+      "type": "Number",
+      "defaultValue": 16,
+      "minimum": 1,
+      "maximum": 100,
+      "group": "Server"
+    },
+    {
+      "key": "network.relay",
+      "label": "Use Relay",
+      "type": "Boolean",
+      "defaultValue": true,
+      "group": "Network",
+      "description": "Recommended by Landfall. Relay mode avoids direct port forwarding and produces a join code."
+    },
+    {
+      "key": "network.port",
+      "label": "Direct Game Port",
+      "type": "Port",
+      "defaultValue": 7777,
+      "minimum": 1,
+      "maximum": 65535,
+      "group": "Network",
+      "visibleWhen": {
+        "key": "network.relay",
+        "isTruthy": false
+      },
+      "description": "Used only with Relay disabled. Direct-port behavior requires live validation."
+    },
+    {
+      "key": "server.additionalArguments",
+      "label": "Additional Arguments",
+      "type": "CommandLine",
+      "defaultValue": "",
+      "group": "Launch"
+    },
+    {
+      "key": "gameplay.playersToStart",
+      "label": "Players Required to Start",
+      "type": "Number",
+      "defaultValue": 2,
+      "minimum": 1,
+      "maximum": 60,
+      "group": "Gameplay"
+    },
+    {
+      "key": "gameplay.minimumPlayersToForceStart",
+      "label": "Minimum Players for Force Start",
+      "type": "Number",
+      "defaultValue": 1,
+      "minimum": 1,
+      "maximum": 60,
+      "group": "Gameplay"
+    },
+    {
+      "key": "gameplay.teamMode",
+      "label": "Team Mode",
+      "type": "Select",
+      "defaultValue": "solo",
+      "options": [
+        "solo",
+        "duo",
+        "squad"
+      ],
+      "group": "Gameplay"
+    },
+    {
+      "key": "gameplay.allowSpectating",
+      "label": "Allow Spectating",
+      "type": "Boolean",
+      "defaultValue": true,
+      "group": "Gameplay"
+    }
+  ],
+  "ports": [],
+  "backupTargets": [
+    {
+      "key": "config",
+      "label": "TABG Server Configuration",
+      "path": "game_settings.txt",
+      "type": "file",
+      "required": true
+    }
+  ],
+  "addons": []
+}
